@@ -12,21 +12,21 @@ Nix flake для [Kimi Code](https://www.kimi.com/code) — AI-агента дл
 ### Попробовать
 
 ```sh
-nix run github:<you>/kimi-code-flake#kimi-code
-nix run github:<you>/kimi-code-flake#kimi-code-desktop
+nix run github:maxim-palshin/kimi-code-flake#kimi-code
+nix run github:maxim-palshin/kimi-code-flake#kimi-code-desktop
 ```
 
 ### В профиль
 
 ```sh
-nix profile install github:<you>/kimi-code-flake
+nix profile install github:maxim-palshin/kimi-code-flake
 ```
 
 ### Как input в NixOS / home-manager (overlay)
 
 ```nix
 # flake.nix
-inputs.kimi-code.url = "github:<you>/kimi-code-flake";
+inputs.kimi-code.url = "github:maxim-palshin/kimi-code-flake";
 
 # конфигурация
 nixpkgs.overlays = [ inputs.kimi-code.overlays.default ];
