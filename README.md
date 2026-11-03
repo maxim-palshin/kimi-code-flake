@@ -1,56 +1,58 @@
 # kimi-code-flake
 
-Nix flake для [Kimi Code](https://www.kimi.com/code) — AI-агента для разработки от Moonshot AI.
+[English](README.md) | [Русский](README.ru.md) | [中文](README.zh.md)
 
-Пакеты:
+Nix flake for [Kimi Code](https://www.kimi.com/code) — an AI coding agent by Moonshot AI.
 
-- **`kimi-code`** — CLI (`kimi`), официальный бинарник с `code.kimi.com`, patchelf под Nix glibc.
-- **`kimi-code-desktop`** — графический десктоп-клиент (Electron, AppImage → `appimageTools.wrapType2`). Только `x86_64-linux` (так устроен официальный релиз).
+Packages:
 
-## Использование
+- **`kimi-code`** — the CLI (`kimi`), the official binary from `code.kimi.com`, patched with patchelf for Nix glibc.
+- **`kimi-code-desktop`** — the graphical desktop client (Electron, AppImage → `appimageTools.wrapType2`). `x86_64-linux` only (as are the official releases).
 
-### Попробовать
+## Usage
+
+### Try it out
 
 ```sh
 nix run github:maxim-palshin/kimi-code-flake#kimi-code
 nix run github:maxim-palshin/kimi-code-flake#kimi-code-desktop
 ```
 
-### В профиль
+### Install into a profile
 
 ```sh
 nix profile install github:maxim-palshin/kimi-code-flake
 ```
 
-### Как input в NixOS / home-manager (overlay)
+### As an input in NixOS / home-manager (overlay)
 
 ```nix
 # flake.nix
 inputs.kimi-code.url = "github:maxim-palshin/kimi-code-flake";
 
-# конфигурация
+# configuration
 nixpkgs.overlays = [ inputs.kimi-code.overlays.default ];
 environment.systemPackages = [ pkgs.kimi-code pkgs.kimi-code-desktop ];
-# или home-manager:
+# or home-manager:
 home.packages = [ pkgs.kimi-code pkgs.kimi-code-desktop ];
 ```
 
-## Обновление версий
+## Updating versions
 
 ### CLI
 
-1. `curl -s https://code.kimi.com/kimi-code/latest` → новая версия.
-2. `curl -s https://code.kimi.com/kimi-code/binaries/<VERSION>/manifest.json` → чексуммы.
-3. Обновить `version` и `sha256` в `pkgs/kimi-code.nix`
+1. `curl -s https://code.kimi.com/kimi-code/latest` → new version.
+2. `curl -s https://code.kimi.com/kimi-code/binaries/<VERSION>/manifest.json` → checksums.
+3. Update `version` and `sha256` in `pkgs/kimi-code.nix`
    (hex → SRI: `nix-hash --type sha256 --to-sri "sha256:<HEX>"`).
 
 ### Desktop
 
-1. Скачать AppImage, посмотреть версию в `X-AppImage-Version` внутри `kimi-code.desktop`.
-2. Обновить `version` и `sha256` в `pkgs/kimi-code-desktop.nix`
-   (`sha256sum` → SRI через `nix-hash --to-sri`).
+1. Download the AppImage and check the version in `X-AppImage-Version` inside `kimi-code.desktop`.
+2. Update `version` and `sha256` in `pkgs/kimi-code-desktop.nix`
+   (`sha256sum` → SRI via `nix-hash --to-sri`).
 
-## Лицензия
+## License
 
-Пакетные скрипты — MIT. Сами бинарники Kimi Code — проприетарные, см.
-[условия Kimi](https://www.kimi.com/code).
+The packaging scripts are MIT. The Kimi Code binaries themselves are proprietary — see the
+[Kimi terms](https://www.kimi.com/code).
